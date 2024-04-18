@@ -8,7 +8,7 @@ let playing_cards = [
 ];
 
 // 最初のデータを表示しておく
-let mainImage = document.createElement('jpg');
+let mainImage = document.createElement('img');
 mainImage.setAttribute('src', playing_cards[0].src);
 mainImage.setAttribute('alt', playing_cards[0].msg);
 
@@ -22,7 +22,7 @@ mainFlame.insertBefore(mainMsg, null);
 // サムネイル画像の表示
 let thumbFlame = document.querySelector('#gallery .thumb');
 for (let i = 0; i < playing_cards.length; i++) {
-    let thumbImage = document.createElement('jpg');
+    let thumbImage = document.createElement('img');
     thumbImage.setAttribute('src', playing_cards[i].src);
     thumbImage.setAttribute('alt', playing_cards[i].msg);
     thumbFlame.insertBefore(thumbImage, null);
