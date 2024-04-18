@@ -4,7 +4,15 @@ let playing_cards = [
     { src: 'playing_cards/Playing_card_club_3.jpg', msg: '3♧' },
     { src: 'playing_cards/Playing_card_club_4.jpg', msg: '4♧' },
     { src: 'playing_cards/Playing_card_club_5.jpg', msg: '5♧' },
-    { src: 'playing_cards/Playing_card_club_6.jpg', msg: '6♧' }
+    { src: 'playing_cards/Playing_card_club_6.jpg', msg: '6♧' },
+    { src: 'playing_cards/Playing_card_club_7.jpg', msg: '7♧' },
+    { src: 'playing_cards/Playing_card_club_8.jpg', msg: '8♧' },
+    { src: 'playing_cards/Playing_card_club_9.jpg', msg: '9♧' },
+    { src: 'playing_cards/Playing_card_club_10.jpg', msg: '10♧' },
+    { src: 'playing_cards/Playing_card_club_A.jpg', msg: 'A♧' },
+    { src: 'playing_cards/Playing_card_club_J.jpg', msg: 'J♧' },
+    { src: 'playing_cards/Playing_card_club_K.jpg', msg: 'K♧' },
+    { src: 'playing_cards/Playing_card_club_Q.jpg', msg: 'Q♧' }
 ];
 
 // 最初のデータを表示しておく
