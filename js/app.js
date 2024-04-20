@@ -88,7 +88,7 @@ button.addEventListener('click', function () {
     cards = getCards();
     displayCards(unsortedList, cards);
 
-    // 0.5秒後にカードを並び替える
+    // 1.0秒後にカードを並び替える
     setTimeout(() => {
         // 未ソートのカードを非表示
         unsortedCards.style.display = 'none';
@@ -113,7 +113,7 @@ button.addEventListener('click', function () {
         //     // ボタンを表示
         //     button.style.display = 'block';
         // }, 500);
-    }, 500);
+    }, 1000);
 });
 
 /* 関数定義 ************************/
