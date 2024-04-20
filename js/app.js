@@ -109,7 +109,7 @@ button.addEventListener('click', function () {
             // sortedList.style.display = 'none';
 
             // 結果の判定
-            getResult(cards);
+            alert(getResultMsg(cards));
 
             // ボタンを表示
             // button.style.display = 'block';
@@ -253,22 +253,27 @@ function getResult(cards) {
     }
 
     if (isStraightFlush(values, suits)) {
-        alert('ストレートフラッシュ');
+        return 'ストレートフラッシュ';
     } else if (isQuads(countQuartet)) {
-        alert('フォー・オブ・ア・カインド');
+        return 'フォー・オブ・ア・カインド';
     } else if (isFullHouse(countPair, countTrio)) {
-        alert('フルハウス');
+        return 'フルハウス';
     } else if (isFlush(suits)) {
-        alert('フラッシュ');
+        return 'フラッシュ';
     } else if (isStraight(values)) {
-        alert('ストレート');
+        return 'ストレート';
     } else if (isTrips(countTrio)) {
-        alert('スリー・オブ・ア・カインド');
+        return 'スリー・オブ・ア・カインド';
     } else if (isTwoPair(countPair)) {
-        alert('ツーペア');
+        return 'ツーペア';
     } else if (isOnePair(countPair)) {
-        alert('ワンペア');
+        return 'ワンペア';
     } else {
-        alert('ハイカード');
+        return 'ハイカード';
     }
+}
+
+// 最終的な結果のメッセージ
+function getResultMsg(cards) {
+    return 'ポーカー・ハンドは「' + getResult(cards) + '」でした';
 }
