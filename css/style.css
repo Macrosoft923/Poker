@@ -16,7 +16,7 @@ main {
 }
 
 #cardsFlame {
-    display: none;
+    /* display: none; */
     width: 980px;
     clear: both;
     overflow: hidden;

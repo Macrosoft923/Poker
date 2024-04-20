@@ -72,30 +72,47 @@ let sortedCards = document.getElementById('sorted');
 let unsortedList = unsortedCards.querySelector('ul');
 let sortedList = sortedCards.querySelector('ul');
 
-// カードオブジェクトの定義
-let cards = [];
-
 /* イベント処理 ***************/
 // ポーカーを開始するボタンを押したとき
 button.addEventListener('click', function () {
+    // カードオブジェクトの定義
+    let cards = [];
+
     // ボタンを非表示
     button.style.display = 'none';
 
     // 未ソートのカードを表示
-    cardsFlame.style.display = 'block';
     unsortedCards.style.display = 'block';
     unsortedList.style.display = 'block';
 
     cards = getCards();
     displayCards(unsortedList, cards);
 
-    // ソート済みのカードを表示
+    // 0.5秒後にカードを並び替える
     setTimeout(() => {
+        // 未ソートのカードを非表示
+        unsortedCards.style.display = 'none';
+        unsortedList.style.display = 'none';
+
+        // ソート済みのカードを表示
         sortedCards.style.display = 'block';
         sortedList.style.display = 'block';
 
         sortCards(cards);
         displayCards(sortedList, cards);
+
+        // 0.5秒後に最終的な結果のメッセージ
+        setTimeout(() => {
+            // ソート済みのカードを非表示
+            sortedCards.style.display = 'none';
+            sortedList.style.display = 'none';
+
+            // 結果の判定
+            getResult(cards);
+
+            // ボタンを表示
+            button.style.display = 'block';
+        }, 500);
     }, 500);
 });
 
@@ -123,7 +140,7 @@ function sortCards(cards) {
 
 // カードを表示する
 function displayCards(list, cards) {
-    list.innerHTML = '';
+    let items = list.querySelectorAll('li');
     for (let i = 0; i < 5; i++) {
         let pokerHand = document.createElement('img');
         pokerHand.setAttribute('src', playing_cards[cards[i].suit][cards[i].number].src);
@@ -133,8 +150,112 @@ function displayCards(list, cards) {
         cardMsg.innerText = pokerHand.alt;
 
         let cardItem = document.createElement('li');
-        cardItem.insertBefore(pokerHand, null);
-        cardItem.insertBefore(cardMsg, null);
-        list.insertBefore(cardItem, null);
+        items[i].insertBefore(pokerHand, null);
+        items[i].insertBefore(cardMsg, null);
+    }
+}
+
+// 結果の判定
+function getResult(cards) {
+    const suits = cards.map(card => card.suit);
+    const values = cards.map(card => card.number);
+
+    const countMap = new Map();
+    values.forEach(value => {
+        const count = countMap.get(value) || 0;
+        countMap.set(value, count + 1);
+    });
+
+    const countPair = 0;
+    const countTrio = 0;
+    const countQuartet = 0;
+    countMap.forEach(element => {
+        if (element === 2) {
+            countPair++;
+        } else if (element === 3) {
+            countTrio += 2;
+        } else if (element === 4) {
+            countQuartet += 6;
+        }
+    });
+
+    function isOnePair(countPair) {
+        if (countPair === 1) {
+            return true;
+        }
+        return false;
+    }
+
+    function isTwoPair(countPair) {
+        if (countPair === 2) {
+            return true;
+        }
+        return false;
+    }
+
+    function isTrips(countTrio) {
+        if (countTrio === 1) {
+            return true;
+        }
+        return false;
+    }
+
+    function isQuads(countQuartet) {
+        if (countQuartet === 1) {
+            return true;
+        }
+        return false;
+    }
+
+    function isFullHouse(countPair, countTrio) {
+        if (isOnePair(countPair) && isTrips(countTrio)) {
+            return true;
+        }
+        return false;
+    }
+
+    function isFlush(suits) {
+        for (let i = 1; i < 5; i++) {
+            if (suits[i] !== suits[i - 1]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function isStraight(values) {
+        for (let i = 1; i < 4; i++) {
+            if (values[i] !== values[i - 1]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function isStraightFlush(values, suits) {
+        if (isStraight(values) && isFlush(suits)) {
+            return true;
+        }
+        return false;
+    }
+
+    if (isOnePair(countPair)) {
+        alert('ワンペア');
+    } else if (isTwoPair(countPair)) {
+        alert('ツーペア');
+    } else if (isTrips(countTrio)) {
+        alert('スリー・オブ・ア・カインド');
+    } else if (isStraight(values)) {
+        alert('ストレート');
+    } else if (isFlush(suits)) {
+        alert('フラッシュ');
+    } else if (isFullHouse(countPair, countTrio)) {
+        alert('フルハウス');
+    } else if (isQuads(countQuartet)) {
+        alert('フォー・オブ・ア・カインド');
+    } else if (isStraightFlush(values, suits)) {
+        alert('ストレートフラッシュ');
+    } else {
+        alert('ハイカード');
     }
 }
