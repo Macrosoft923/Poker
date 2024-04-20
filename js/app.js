@@ -1,4 +1,5 @@
-// トランプカードの作成
+/* トランプカードの設定 ***************/
+// トランプカードの設定
 let playing_cards = [
     [
         { src: 'playing_cards/Playing_card_club_A.jpg', msg: 'A♧' },
@@ -62,49 +63,76 @@ let playing_cards = [
     ]
 ];
 
-// 最初のカードを表示しておく
-let mainFlame = document.querySelector('#cards');
-let cardList = document.createElement('ul');
+/* プログラムで使用する変数の設定 ***************/
+// プログラムの要素を取得
+let button = document.getElementById('button');
+let cardFlame = document.getElementById('cardFlame');
+let unsortedList = document.getElementById('unsorted');
+let sortedList = document.getElementById('sorted');
+
+// カードオブジェクトの定義
 let cards = [];
-for (let i = 0; i < 5; i++) {
-    let mainCard = document.createElement('img');
-    let row = Math.floor(Math.random() * 4);
-    let column = Math.floor(Math.random() * 13);
-    mainCard.setAttribute('src', playing_cards[row][column].src);
-    mainCard.setAttribute('alt', playing_cards[row][column].msg);
 
-    let mainMsg = document.createElement('p');
-    mainMsg.innerText = mainCard.alt;
+/* イベント処理 ***************/
+// ポーカーを開始するボタンを押したとき
+button.addEventListener('click', function () {
+    // ボタンを非表示
+    button.style.display = 'none';
 
-    let cardItem = document.createElement('li');
-    cardItem.insertBefore(mainCard, null);
-    cardItem.insertBefore(mainMsg, null);
-    cardList.insertBefore(cardItem, null);
+    // 未ソートのカードを表示
+    cardFlame.style.display = 'block';
+    unsortedList.style.display = 'block';
 
-    cards.push({ suit: row, number: column });
+    cards = getCards();
+    displayCards(unsortedList, cards);
+
+    // ソート済みのカードを表示
+    setTimeout(() => {
+        sortedList.style.display = 'block';
+
+        sortCards(cards);
+        displayCards(sortedList, cards);
+    }, 500);
+});
+
+console.log(cards);
+
+/* 関数定義 ************************/
+// カードを取得する
+function getCards() {
+    let cards = [];
+    for (let i = 0; i < 5; i++) {
+        let row = Math.floor(Math.random() * 4);
+        let column = Math.floor(Math.random() * 13);
+        cards.push({ suit: row, number: column });
+    }
+    return cards;
 }
-mainFlame.appendChild(cardList);
 
 // カードを並び替える
-setTimeout(() => {
+function sortCards(cards) {
     cards.sort((a, b) => {
         if (a.suit === b.suit) {
             return a.number - b.number;
         }
         return a.suit - b.suit;
     });
+}
 
+// カードを表示する
+function displayCards(list, cards) {
+    list.innerHTML = '';
     for (let i = 0; i < 5; i++) {
-        let mainCard = document.createElement('img');
-        mainCard.setAttribute('src', playing_cards[cards[i].suit][cards[i].number].src);
-        mainCard.setAttribute('alt', playing_cards[cards[i].suit][cards[i].number].msg);
+        let pokerHand = document.createElement('img');
+        pokerHand.setAttribute('src', playing_cards[cards[i].suit][cards[i].number].src);
+        pokerHand.setAttribute('alt', playing_cards[cards[i].suit][cards[i].number].msg);
 
-        let mainMsg = document.createElement('p');
-        mainMsg.innerText = mainCard.alt;
+        let cardMsg = document.createElement('p');
+        cardMsg.innerText = pokerHand.alt;
 
         let cardItem = document.createElement('li');
-        cardItem.insertBefore(mainCard, null);
-        cardItem.insertBefore(mainMsg, null);
-        cardList.insertBefore(cardItem, null);
+        cardItem.insertBefore(pokerHand, null);
+        cardItem.insertBefore(cardMsg, null);
+        list.insertBefore(cardItem, null);
     }
-}, 3000);
+}
