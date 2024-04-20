@@ -102,17 +102,17 @@ button.addEventListener('click', function () {
         displayCards(sortedList, cards);
 
         // 0.5秒後に最終的な結果のメッセージ
-        setTimeout(() => {
-            // ソート済みのカードを非表示
-            sortedCards.style.display = 'none';
-            sortedList.style.display = 'none';
+        // setTimeout(() => {
+        //     // ソート済みのカードを非表示
+        //     sortedCards.style.display = 'none';
+        //     sortedList.style.display = 'none';
 
-            // 結果の判定
-            getResult(cards);
+        //     // 結果の判定
+        //     getResult(cards);
 
-            // ボタンを表示
-            button.style.display = 'block';
-        }, 500);
+        //     // ボタンを表示
+        //     button.style.display = 'block';
+        // }, 500);
     }, 500);
 });
 
@@ -131,10 +131,10 @@ function getCards() {
 // カードを並び替える
 function sortCards(cards) {
     cards.sort((a, b) => {
-        if (a.suit === b.suit) {
-            return a.number - b.number;
+        if (a.number === b.number) {
+            return a.suit - b.suit;
         }
-        return a.suit - b.suit;
+        return a.number - b.number;
     });
 }
 
