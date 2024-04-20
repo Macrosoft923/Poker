@@ -1,5 +1,5 @@
-/* トランプカードの設定 ***************/
-// トランプカードの設定
+/* トランプのカードの定義 ************************/
+// トランプのカードの番号を設定
 let playing_cards = [
     [
         { src: 'playing_cards/Playing_card_club_A.jpg', msg: 'A♧' },
@@ -66,9 +66,11 @@ let playing_cards = [
 /* プログラムで使用する変数の設定 ***************/
 // プログラムの要素を取得
 let button = document.getElementById('button');
-let cardFlame = document.getElementById('cardFlame');
-let unsortedList = document.getElementById('unsorted');
-let sortedList = document.getElementById('sorted');
+let cardsFlame = document.getElementById('cardsFlame');
+let unsortedCards = document.getElementById('unsorted');
+let sortedCards = document.getElementById('sorted');
+let unsortedList = unsortedCards.querySelector('ul');
+let sortedList = sortedCards.querySelector('ul');
 
 // カードオブジェクトの定義
 let cards = [];
@@ -80,7 +82,8 @@ button.addEventListener('click', function () {
     button.style.display = 'none';
 
     // 未ソートのカードを表示
-    cardFlame.style.display = 'block';
+    cardsFlame.style.display = 'block';
+    unsortedCards.style.display = 'block';
     unsortedList.style.display = 'block';
 
     cards = getCards();
@@ -88,14 +91,13 @@ button.addEventListener('click', function () {
 
     // ソート済みのカードを表示
     setTimeout(() => {
+        sortedCards.style.display = 'block';
         sortedList.style.display = 'block';
 
         sortCards(cards);
         displayCards(sortedList, cards);
     }, 500);
 });
-
-console.log(cards);
 
 /* 関数定義 ************************/
 // カードを取得する

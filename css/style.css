@@ -21,7 +21,7 @@ main {
     font-weight: bold;
 } */
 
-#cardFlame {
+#cardsFlame {
     display: none;
     width: 980px;
     clear: both;
@@ -31,6 +31,11 @@ main {
 
 #unsorted,
 #sorted {
+    display: none;
+}
+
+#unsorted ul,
+#sorted ul {
     display: none;
     list-style: none;
     margin: 0;
